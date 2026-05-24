@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy Diwali</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- React -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(to bottom,#090011,#1a0033,#000);
+    height:100vh;
+    color:white;
+}
+
+.main{
+    position:relative;
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+h1{
+    font-size:70px;
+    font-weight:bold;
+    color:#ffd700;
+    text-shadow:0 0 20px orange;
+    animation:glow 2s infinite alternate;
+}
+
+p{
+    font-size:24px;
+    margin-top:15px;
+    color:#fff;
+}
+
+@keyframes glow{
+    from{
+        text-shadow:0 0 10px orange;
+    }
+    to{
+        text-shadow:0 0 30px yellow,0 0 50px red;
+    }
+}
+
+/* Diyas */
+.diya-container{
+    position:absolute;
+    bottom:20px;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    gap:50px;
+}
+
+.diya{
+    position:relative;
+    width:70px;
+    height:35px;
+    background:#b5651d;
+    border-radius:0 0 50px 50px;
+}
+
+.flame{
+    position:absolute;
+    top:-30px;
+    left:25px;
+    width:20px;
+    height:30px;
+    background:yellow;
+    border-radius:50%;
+    animation:flicker 0.3s infinite alternate;
+    box-shadow:0 0 20px orange;
+}
+
+@keyframes flicker{
+    from{
+        transform:scale(1);
+    }
+    to{
+        transform:scale(1.1);
+    }
+}
+
+/* Fireworks */
+.firework{
+    position:absolute;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    animation:explode 1.5s linear infinite;
+}
+
+@keyframes explode{
+    0%{
+        transform:translate(0,0) scale(1);
+        opacity:1;
+    }
+    100%{
+        transform:translate(var(--x),var(--y)) scale(0);
+        opacity:0;
+    }
+}
+
+/* Rocket */
+.rocket{
+    position:absolute;
+    bottom:-100px;
+    width:10px;
+    height:40px;
+    background:red;
+    left:50%;
+    animation:rocketMove 4s linear infinite;
+}
+
+@keyframes rocketMove{
+    0%{
+        bottom:-100px;
+        opacity:1;
+    }
+    80%{
+        opacity:1;
+    }
+    100%{
+        bottom:100%;
+        opacity:0;
+    }
+}
+
+.btn-custom{
+    margin-top:30px;
+    padding:12px 30px;
+    font-size:20px;
+    border:none;
+    border-radius:50px;
+    background:linear-gradient(45deg,#ff9800,#ff5722);
+    color:white;
+    transition:0.3s;
+}
+
+.btn-custom:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 20px orange;
+}
+</style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function Fireworks(){
+
+    const fireworks = [];
+
+    for(let i=0;i<80;i++){
+
+        fireworks.push(
+            <div
+                key={i}
+                className="firework"
+                style={{
+                    background:`hsl(${Math.random()*360},100%,50%)`,
+                    top:`${Math.random()*80}%`,
+                    left:`${Math.random()*100}%`,
+                    '--x':`${(Math.random()-0.5)*300}px`,
+                    '--y':`${(Math.random()-0.5)*300}px`,
+                    animationDelay:`${Math.random()*2}s`
+                }}
+            ></div>
+        )
+    }
+
+    return fireworks;
+}
+
+function App(){
+
+    const showMessage = () => {
+        alert("✨ Happy Diwali Sanket ✨\nMay your life shine like fireworks!");
+    }
+
+    return(
+        <div className="main">
+
+            <Fireworks />
+
+            <div className="rocket"></div>
+
+            <h1>🪔 Happy Diwali 🪔</h1>
+
+            <p>
+                May your life be filled with Happiness, Success,
+                Light and Crackers 🎆
+            </p>
+
+            <button className="btn-custom" onClick={showMessage}>
+                Celebrate Diwali 🎉
+            </button>
+
+            <div className="diya-container">
+
+                <div className="diya">
+                    <div className="flame"></div>
+                </div>
+
+                <div className="diya">
+                    <div className="flame"></div>
+                </div>
+
+                <div className="diya">
+                    <div className="flame"></div>
+                </div>
+
+                <div className="diya">
+                    <div className="flame"></div>
+                </div>
+
+            </div>
+
+        </div>
+    )
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+</script>
+
+</body>
+</html>
